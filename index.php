@@ -181,39 +181,59 @@
 
       <div class="blog-entries">
 
+         <?php 
+         $args = array(
+            'numberposts'      => 3,
+            'orderby'          => 'date',
+            'post_type'        => 'post',
+            'suppress_filters' => true,
+         );
+
+         $posts = get_posts($args);
+
+         foreach($posts as $post) {
+            setup_postdata($post);
+            ?> 
+
+               <!-- Entry -->
+               <article class="row entry">
+
+                  <div class="entry-header">
+
+                     <div class="permalink">
+                        <a href="<?php the_permalink(); ?>"><i class="fa fa-link"></i></a>
+                     </div>
+
+                     <div class="ten columns entry-title pull-right">
+                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                     </div>
+
+                     <div class="two columns post-meta end">
+                        <p>
+                        <time datetime="2014-01-31" class="post-date" pubdate=""><?php the_time('F jS, Y'); ?></time>
+                        <span class="dauthor">By <?php the_author(); ?></span>
+                        </p>
+                     </div>
+
+                  </div>
+
+                  <div class="ten columns offset-2 post-content">
+                     <?php the_excerpt(); ?>
+                     <p>
+                        <a class="more-link" href="single.html">Read More<i class="fa fa-arrow-circle-o-right"></i></a>
+                     </p>
+                  </div>
+
+               </article> <!-- Entry End -->
+
+            <?php
+         }
+
+         wp_reset_postdata();
+         ?>
+
          <!-- Entry -->
-         <article class="row entry">
-
-            <div class="entry-header">
-
-               <div class="permalink">
-                  <a href="single.html"><i class="fa fa-link"></i></a>
-               </div>
-
-               <div class="ten columns entry-title pull-right">
-                  <h3><a href="single.html">Proin gravida nibh vel velit auctor aliquet Aenean sollicitudin auctor.</a></h3>
-               </div>
-
-               <div class="two columns post-meta end">
-                  <p>
-                  <time datetime="2014-01-31" class="post-date" pubdate="">Jan 31, 2014</time>
-                  <span class="dauthor">By Sakura Haruno</span>
-                  </p>
-               </div>
-
-            </div>
-
-            <div class="ten columns offset-2 post-content">
-               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-               deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
-               At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium.
-               <a class="more-link" href="single.html">Read More<i class="fa fa-arrow-circle-o-right"></i></a></p>
-            </div>
-
-         </article> <!-- Entry End -->
-
-         <!-- Entry -->
-         <article class="row entry">
+         <!-- <article class="row entry">
 
             <div class="entry-header">
 
@@ -241,10 +261,10 @@
                <a class="more-link" href="single.html">Read More<i class="fa fa-arrow-circle-o-right"></i></a></p>
             </div>
 
-         </article> <!-- Entry End -->
+         </article> Entry End -->
 
          <!-- Entry -->
-         <article class="row entry">
+         <!-- <article class="row entry">
 
             <div class="entry-header">
 
@@ -272,7 +292,7 @@
                <a class="more-link" href="single.html">Read More<i class="fa fa-arrow-circle-o-right"></i></a></p>
             </div>
 
-         </article> <!-- Entry End -->
+         </article> Entry End -->
 
       </div> <!-- Entries End -->
 
