@@ -6,12 +6,30 @@ add_action('after_setup_theme', 'theme_register');
 add_action( 'widgets_init', 'register_my_widgets' );
 
 add_filter( 'excerpt_more', 'wpdocs_excerpt_more' );
+function wpdocs_excerpt_more( $more ) {
+  return '...';
+}
+
+add_filter('document_title_separator', 'my_separator' );
+function my_separator($sep) {
+  $sep = ' | ';
+  return $sep;
+}
 
 function register_my_widgets(){
-  register_sidebar( array(
-    'name'          => 'Left Sidebar',
-    'id'            => 'left-sidebar',
-    'description'   => 'Left Sidebar',
+  register_sidebar(array(
+    'name'          => 'Main Sidebar',
+    'id'            => 'sidebar',
+    'description'   => 'Main Sidebar',
+    'before_widget' => '<div class="widget %2$s">',
+    'after_widget'  => '</div>',
+    'before_title'  => '<h5 class="widget-title">',
+    'after_title'   => '</h5>'
+  ) );
+  register_sidebar(array(
+    'name'          => 'Contacts Sidebar',
+    'id'            => 'sidebar-contacts',
+    'description'   => 'Contacts Sidebar',
     'before_widget' => '<div class="widget %2$s">',
     'after_widget'  => '</div>',
     'before_title'  => '<h5 class="widget-title">',
@@ -42,10 +60,6 @@ function scripts_theme() {
     wp_enqueue_script('flexslider', get_template_directory_uri() . '/assets/js/jquery.flexslider.js', array( 'jquery' ), null, true);
     wp_enqueue_script('doubletaptogo', get_template_directory_uri() . '/assets/js/doubletaptogo.js', array( 'jquery' ), null, true);
     wp_enqueue_script('modernizr', get_template_directory_uri() . '/assets/js/modernizr.js', null, null, true);
-}
-
-function wpdocs_excerpt_more( $more ) {
-	return '...';
 }
 
 ?>
