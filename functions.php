@@ -4,6 +4,7 @@ add_action('wp_enqueue_scripts', 'style_theme');
 add_action('wp_footer', 'scripts_theme');
 add_action('after_setup_theme', 'theme_register');
 add_action( 'widgets_init', 'register_my_widgets' );
+add_action( 'init', 'register_post_types' );
 
 add_filter( 'excerpt_more', 'wpdocs_excerpt_more' );
 function wpdocs_excerpt_more( $more ) {
@@ -41,7 +42,7 @@ function theme_register() {
     register_nav_menu('header-menu', 'Header Menu');
     register_nav_menu('footer-menu', 'Footer Menu');
     add_theme_support('title-tag');
-    add_theme_support('post-thumbnails', array('post'));
+    add_theme_support('post-thumbnails', array('post', 'portfolio'));
     add_image_size('post-thumb', 1300, 600, true);
 }
 
@@ -60,6 +61,46 @@ function scripts_theme() {
     wp_enqueue_script('flexslider', get_template_directory_uri() . '/assets/js/jquery.flexslider.js', array( 'jquery' ), null, true);
     wp_enqueue_script('doubletaptogo', get_template_directory_uri() . '/assets/js/doubletaptogo.js', array( 'jquery' ), null, true);
     wp_enqueue_script('modernizr', get_template_directory_uri() . '/assets/js/modernizr.js', null, null, true);
+}
+function register_post_types(){
+	$args = array(
+		'label'  => null,
+		'labels' => array(
+			'name'               => 'Portfolio', // основное название для типа записи
+			'singular_name'      => 'Portfolio', // название для одной записи этого типа
+			'all_items' 	     => 'Portfolio', //названия для всех записей этого вида
+			'add_new'            => 'Add item', // для добавления новой записи
+			'add_new_item'       => 'Adding item', // заголовка у вновь создаваемой записи в админ-панели.
+			'edit_item'          => 'Edit item', // для редактирования типа записи
+			'new_item'           => 'New item', // текст новой записи
+			'view_item'          => 'View item', // для просмотра записи этого типа.
+			'search_items'       => 'Search item', // для поиска по этим типам записи
+			'not_found'          => 'Not found', // если в результате поиска ничего не было найдено
+			'not_found_in_trash' => 'Not found in trash', // если не было найдено в корзине
+			'parent_item_colon'  => '', // для родительских типов. для древовидных типов
+			'menu_name'          => 'Portfolio', // название меню
+		),
+		'description'         => 'Our works in portfolio',
+		'public'              => true,
+		'publicly_queryable'  => true,
+		'exclude_from_search' => true,
+		'show_ui'             => true,
+		'show_in_menu'        => true,
+		'menu_position'       => true,
+		'menu_icon'           => 'dashicons-format-gallery', 
+		//'capability_type'   => 'post',
+		//'capabilities'      => 'post', // массив дополнительных прав для этого типа записи
+		//'map_meta_cap'      => null, // Ставим true чтобы включить дефолтный обработчик специальных прав
+		'hierarchical'        => false,
+		'supports'            => array('title','editor', 'thumbnail', 'excerpt'),
+		'taxonomies'          => array(),
+		'has_archive'         => false,
+		'rewrite'             => true,
+		'query_var'           => true,
+		'show_in_nav_menus'   => null,
+	);
+
+	register_post_type('portfolio', $args );
 }
 
 ?>
