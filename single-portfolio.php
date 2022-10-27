@@ -1,10 +1,3 @@
-<?php
-/*
-Template Name: Portfolio single page
-Template Post Type: portfolio
-*/
-?>
-
 <?php get_header(); ?>
 
 <!-- Page Title
@@ -47,9 +40,11 @@ Template Post Type: portfolio
             </div>
 
             <ul class="portfolio-meta-list">
-              <li><span>Date: </span><?php the_field('project-date'); ?></li>
-              <li><span>Client: </span><?php the_field('client'); ?></li>
-              <li><span>Skills: </span><?php the_field('skills'); ?></li>
+              <li><span>Date: </span><?php the_field('project-date'); ?></li> <!-- произвольные поля -->
+              <li><span>Client: </span><?php the_field('client'); ?></li> <!-- произвольные поля -->
+              <li><span>Skills: </span>
+                <?php the_terms(get_the_ID(), 'skills', '', ', ', ''); ?> <!-- таксономия -->
+              </li>
             </ul>
 
             <!-- <a class="button" href="http://behance.net">View project</a> -->
